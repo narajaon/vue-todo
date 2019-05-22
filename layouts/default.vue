@@ -3,7 +3,7 @@
     <nuxt class="app" />
   </div>
 </template>
-<style>
+<style scoped>
 
 .home {
     display: flex;

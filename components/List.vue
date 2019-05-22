@@ -23,7 +23,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .list-container {
 	display: flex;
 	flex-direction: column;
