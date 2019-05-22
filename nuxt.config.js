@@ -21,7 +21,7 @@ export default {
 	build: {
 		plugins: [new VuetifyLoaderPlugin()],
 		extractCSS: true,
-		transpile: ['vuetify/lib']
+		transpile: ['vuetify/lib'],
 	},
 	/*
 	** Load Vuetify into the app

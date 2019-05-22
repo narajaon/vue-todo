@@ -1,9 +1,16 @@
 <template functional>
   <div name="list-container">
-    <slot
-      v-for="elem in props.list"
-      :content="elem.content"
-    />
+    <div
+      v-for="(elem, index) in props.list"
+      :key="elem.description"
+    >
+      <slot
+        :content="elem"
+      />
+      <button @click="props.remove(index)">
+        DELETE
+      </button>
+    </div>
   </div>
 </template>
 

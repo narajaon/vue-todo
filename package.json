@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/narajaon/vue-todo#readme",
   "dependencies": {
+    "css-loader": "^2.1.1",
     "nuxt": "^2.7.1",
     "vuetify": "^1.5.14",
     "vuetify-loader": "^1.2.2"

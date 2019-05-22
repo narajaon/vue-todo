@@ -1,9 +1,12 @@
 <template>
   <div>
-    <List :list="todos">
+    <List
+      :list="todos"
+      :remove="removeElement"
+    >
       <Todo
-        slot-scope="item"
-        :content="item.content"
+        slot-scope="content"
+        v-bind="content"
       />
     </List>
   </div>
@@ -18,24 +21,15 @@ export default {
 		List,
 		Todo,
 	},
-	data() {
-		return {
-			todos: [
-				{
-					content: 'Todo',
-					id: 'yo',
-				},
-				{
-					content: 'Coco',
-					id: 'o',
-				},
-				{
-					content: 'Coc',
-					id: 'yu',
-				}
-			],
-			type: 'Todo',
-		};
+	computed: {
+		todos() {
+			return this.$store.getters['todos/entity'];
+		}
 	},
+	methods: {
+		removeElement(index) {
+			this.$store.commit('todos/removeByIndex', { index });
+		}
+	}
 };
 </script>
