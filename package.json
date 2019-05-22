@@ -1,0 +1,35 @@
+{
+  "name": "vue-todo",
+  "version": "1.0.0",
+  "description": "a todo list in vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nuxt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/narajaon/vue-todo.git"
+  },
+  "keywords": [
+    "todo",
+    "vue"
+  ],
+  "author": "narajaon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/narajaon/vue-todo/issues"
+  },
+  "homepage": "https://github.com/narajaon/vue-todo#readme",
+  "dependencies": {
+    "nuxt": "^2.7.1",
+    "vuetify": "^1.5.14",
+    "vuetify-loader": "^1.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1"
+  }
+}
