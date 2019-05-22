@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <List
-      :list="todos"
-      :remove="removeElement"
-    >
-      <Todo
-        slot-scope="content"
-        v-bind="content"
-      />
-    </List>
+  <div class="home-page display-1">
+    <h1 class="display-2 font-weight-bold">
+      Fabien's awesome todos
+    </h1>
+    <div class="todo-list">
+      <List>
+        <Todo
+          slot-scope="content"
+          v-bind="content"
+        />
+      </List>
+    </div>
   </div>
 </template>
 
@@ -21,15 +23,21 @@ export default {
 		List,
 		Todo,
 	},
-	computed: {
-		todos() {
-			return this.$store.getters['todos/entity'];
-		}
-	},
-	methods: {
-		removeElement(index) {
-			this.$store.commit('todos/removeByIndex', { index });
-		}
-	}
 };
 </script>
+
+<style>
+h1 {
+	color: white;
+}
+
+.home-page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.todo-list {
+	width: 50%;
+}
+</style>
