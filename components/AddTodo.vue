@@ -3,7 +3,6 @@
     <v-text-field
       v-if="addMode"
       v-model="newTodo"
-      :value="dateFormatted"
       hide-details
     />
 
@@ -21,7 +20,7 @@
           cancel
         </v-icon>
       </v-btn>
-
+  
       <v-btn
         color="green"
         round

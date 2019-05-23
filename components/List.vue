@@ -13,7 +13,18 @@
 export default {
 	computed: {
 		todos() {
-			return this.$store.getters['todos/byDate'];
+			const cb = (prev, next) => {
+				
+				if (prev.deadline === next.deadline) {
+					return prev.description.localCompare(next.description);
+				}
+
+				return prev.deadline - next.deadline;
+			};
+
+			this.$store.commit('todos/sortTodos', { cb });
+			
+			return this.$store.getters['todos/entity'];
 		}
 	},
 	methods: {

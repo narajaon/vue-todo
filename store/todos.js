@@ -25,14 +25,16 @@ export const getters = {
 	byDate: state => {
 		const cpy = state.todos.map(e => e);
 		
-		return cpy.sort((prev, next) => prev.deadline - next.deadline);
+		return cpy.sort((prev, next) => {
+			
+			if (prev.deadline === next.deadline) {
+				return prev.description.localCompare(next.description);
+			}
+			
+			return prev.deadline - next.deadline;
+		});
 	},
 	byIndex: state => index => state.grid[index],
-	byDeadline: state => cb => {
-		const cpy = state.todos.map(e => e);
-		
-		return cpy.sort(cb);
-	},
 	byStatus: state => status => state.todos.filter(elem => elem.status === status),
 	byDescription: state => input => state.todos.filter(elem => elem.description.includes(input))
 };
@@ -41,7 +43,6 @@ export const mutations = {
 	removeByIndex: (state, { index }) => {
 		state.todos.splice(index, 1);
 	},
-	// To test
 	removeByStatus: (state, { status }) => state.grid.forEach((element, i) => {
 		if (element.status === status) {
 			state.grid.splice(i, 1);
@@ -52,5 +53,10 @@ export const mutations = {
 	},
 	addNewTodo: (state, { description, status }) => {
 		state.todos.push({ description, deadline: new Date(), status });
-	}
+	},
+	sortTodos: (state, { cb }) => {
+		const cpy = state.todos.map(e => e);
+		cpy.sort(cb);
+		state.todos = cpy;
+	},
 };
