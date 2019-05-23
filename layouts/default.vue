@@ -8,7 +8,7 @@
 .home {
     display: flex;
     justify-content: center;
-    background-color: rebeccapurple;
+    background-color: #de3a64;
     width: 100vw;
     height: 100vh;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="home-page display-1">
     <h1 class="display-2 font-weight-bold">
-      Fabien's awesome todos
+      Fabien's Vue.js todos
     </h1>
     <div class="todo-list">
       <v-checkbox
