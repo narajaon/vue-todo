@@ -8,13 +8,13 @@
 .home {
     display: flex;
     justify-content: center;
-    align-items: center;
     background-color: rebeccapurple;
     width: 100vw;
     height: 100vh;
 }
 
 .app {
+    margin-top: 50px
 }
 
 </style>

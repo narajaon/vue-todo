@@ -10,6 +10,7 @@
           v-bind="content"
         />
       </List>
+      <add-todo class="add-todo" />
     </div>
   </div>
 </template>
@@ -17,19 +18,25 @@
 <script>
 import List from '../components/List';
 import Todo from '../components/Todo';
+import AddTodo from '../components/AddTodo';
 
 export default {
 	components: {
 		List,
 		Todo,
+		AddTodo,
 	},
 };
 </script>
 
-<style>
+<style scoped>
+.add-todo {
+	margin-top: 20px;
+}
+
 h1 {
 	color: white;
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .home-page {
@@ -39,6 +46,9 @@ h1 {
 }
 
 .todo-list {
-  width: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 </style>

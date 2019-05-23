@@ -4,7 +4,7 @@
       v-for="(elem, index) in todos"
       :content="elem"
       :remove="removeElement(index)"
-      :toggleStatus="toggleElementStatus(index)"
+      :setProp="setElementProp(index)"
     />
   </div>
 </template>
@@ -13,19 +13,18 @@
 export default {
 	computed: {
 		todos() {
-			return this.$store.getters['todos/entity'];
+			return this.$store.getters['todos/byDate'];
 		}
 	},
 	methods: {
 		removeElement(index) {
 			return () => this.$store.commit('todos/removeByIndex', { index });
 		},
-		toggleElementStatus(index) {
-			return (status) => {
-				const newStatus = status === 'done' ? 'todo' : 'done';
-				this.$store.commit('todos/setTodoProp', { name: 'status', prop: newStatus, index });
+		setElementProp(index) {
+			return (name, prop) => {
+				this.$store.commit('todos/setTodoProp', { name, prop, index });
 			};
-		}
+		},
 	},
 };
 </script>
@@ -34,5 +33,6 @@ export default {
 .list-container {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 }
 </style>

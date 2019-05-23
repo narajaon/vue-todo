@@ -6,7 +6,7 @@
         :close="true"
         text-color="#424242"
         @input="remove"
-        @click="toggleStatus(content.status)"
+        @click="setProp('status', content.status === 'done' ? 'todo' : 'done')"
       >
         <v-avatar>
           <v-icon
@@ -17,6 +17,7 @@
             {{ content.status === 'done' ? 'check_circle_outline' : '' }}
           </v-icon>
         </v-avatar>
+				
         <div class="content subheading font-weight-medium text-truncate">
           {{ content.description }}
         </div>
@@ -37,16 +38,17 @@
       >
         <template v-slot:activator="{ on }">
           <v-text-field
-            v-model="dateFormatted"
+            :value="dateFormatted"
             prepend-icon="event"
             readonly
-            @blur="date = parseDate(dateFormatted)"
+            hide-details
             v-on="on"
           />
         </template>
         <v-date-picker
           v-model="date"
           no-title
+          show-current
           @input="menu = false"
         />
       </v-menu>
@@ -79,37 +81,34 @@ export default {
 			type: Function,
 			required: true,
 		},
-		toggleStatus: {
+		setProp: {
 			type: Function,
 			required: true,
 		}
 	},
-	data: vm => ({
-		date: new Date().toISOString().substr(0, 10),
-		dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
+	data: () => ({
 		menu: false,
 	}),
 	computed: {
-		computedDateFormatted() {
+		dateFormatted() {
 			return this.formatDate(this.date);
-		}
-	},
-	watch: {
-		date() {
-			this.dateFormatted = this.formatDate(this.date);
+		},
+		date: {
+			get() {
+				return this.content.deadline.toISOString().substr(0, 10);
+			},
+			set(val) {
+				this.setProp('deadline', new Date(val));
+			},
 		}
 	},
 	methods: {
 		formatDate(date) {
-			if (!date) return null;
-
 			const [year, month, day] = date.split('-');
 			
 			return `${day}/${month}/${year}`;
 		},
 		parseDate(date) {
-			if (!date) return null;
-
 			const [day, month, year] = date.split('/');
 			
 			return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
@@ -130,6 +129,13 @@ export default {
 }
 
 .v-text-field {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+}
+
+.v-text-field >>> input {
 	margin: 0;
 	padding: 0;
 }

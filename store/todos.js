@@ -22,8 +22,17 @@ export const state = () => ({
 
 export const getters = {
 	entity: state => state.todos,
+	byDate: state => {
+		const cpy = state.todos.map(e => e);
+		
+		return cpy.sort((prev, next) => prev.deadline - next.deadline);
+	},
 	byIndex: state => index => state.grid[index],
-	byDeadline: state => cb => state.todos.sort(cb),
+	byDeadline: state => cb => {
+		const cpy = state.todos.map(e => e);
+		
+		return cpy.sort(cb);
+	},
 	byStatus: state => status => state.todos.filter(elem => elem.status === status),
 	byDescription: state => input => state.todos.filter(elem => elem.description.includes(input))
 };
@@ -41,4 +50,7 @@ export const mutations = {
 	setTodoProp: (state, { name, prop, index }) => {
 		state.todos[index][name] = prop;
 	},
+	addNewTodo: (state, { description, status }) => {
+		state.todos.push({ description, deadline: new Date(), status });
+	}
 };
