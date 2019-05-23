@@ -1,7 +1,7 @@
 <template>
   <div class="list-container">
     <slot
-      v-for="(elem, index) in todos"
+      v-for="(elem, index) in list"
       :content="elem"
       :remove="removeElement(index)"
       :setProp="setElementProp(index)"
@@ -11,20 +11,10 @@
 
 <script>
 export default {
-	computed: {
-		todos() {
-			const cb = (prev, next) => {
-				
-				if (prev.deadline === next.deadline) {
-					return prev.description.localCompare(next.description);
-				}
-
-				return prev.deadline - next.deadline;
-			};
-
-			this.$store.commit('todos/sortTodos', { cb });
-			
-			return this.$store.getters['todos/entity'];
+	props: {
+		list: {
+			required: true,
+			type: Array,
 		}
 	},
 	methods: {

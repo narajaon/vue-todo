@@ -1,5 +1,3 @@
-import Vue from 'vue';
-
 export const state = () => ({
 	todos: [
 		{
@@ -22,18 +20,6 @@ export const state = () => ({
 
 export const getters = {
 	entity: state => state.todos,
-	byDate: state => {
-		const cpy = state.todos.map(e => e);
-		
-		return cpy.sort((prev, next) => {
-			
-			if (prev.deadline === next.deadline) {
-				return prev.description.localCompare(next.description);
-			}
-			
-			return prev.deadline - next.deadline;
-		});
-	},
 	byIndex: state => index => state.grid[index],
 	byStatus: state => status => state.todos.filter(elem => elem.status === status),
 	byDescription: state => input => state.todos.filter(elem => elem.description.includes(input))
@@ -55,8 +41,6 @@ export const mutations = {
 		state.todos.push({ description, deadline: new Date(), status });
 	},
 	sortTodos: (state, { cb }) => {
-		const cpy = state.todos.map(e => e);
-		cpy.sort(cb);
-		state.todos = cpy;
+		state.todos.sort(cb);
 	},
 };

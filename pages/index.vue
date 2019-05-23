@@ -4,7 +4,11 @@
       Fabien's awesome todos
     </h1>
     <div class="todo-list">
-      <List>
+      <v-checkbox
+        v-model="byStatus"
+        label="remove done"
+      />
+      <List :list="todos">
         <Todo
           slot-scope="content"
           v-bind="content"
@@ -26,6 +30,30 @@ export default {
 		Todo,
 		AddTodo,
 	},
+	data() {
+		return {
+			byStatus: false,
+		};
+	},
+	computed: {
+		todos() {
+			const cb = (prev, next) => {
+				if (prev.deadline === next.deadline) {
+					return prev.description.localCompare(next.description);
+				}
+
+				return prev.deadline - next.deadline;
+			};
+
+			this.$store.commit('todos/sortTodos', { cb });
+			
+			if (this.byStatus) {
+				return this.$store.getters['todos/entity'].filter(elem => elem.status === 'todo');
+			}
+
+			return this.$store.getters['todos/entity'];
+		}
+	}
 };
 </script>
 
@@ -36,7 +64,6 @@ export default {
 
 h1 {
 	color: white;
-	margin-bottom: 20px;
 }
 
 .home-page {

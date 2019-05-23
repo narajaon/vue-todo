@@ -1,60 +1,63 @@
 <template>
-  <div class="todo-container">
-    <div class="todo">
-      <v-chip
-        class="todo-chip"
-        :close="true"
-        text-color="#424242"
-        @input="remove"
-        @click="setProp('status', content.status === 'done' ? 'todo' : 'done')"
-      >
-        <v-avatar>
-          <v-icon
-            color="green"
-            light
-            medium
-          >
-            {{ content.status === 'done' ? 'check_circle_outline' : '' }}
-          </v-icon>
-        </v-avatar>
-				
-        <div class="content subheading font-weight-medium text-truncate">
-          {{ content.description }}
-        </div>
-      </v-chip>
-    </div>
-    <div class="deadline">
-      <v-menu
-        ref="menu"
-        v-model="menu"
-        :close-on-content-click="false"
-        :nudge-right="40"
-        lazy
-        transition="scale-transition"
-        offset-y
-        full-width
-        max-width="290px"
-        min-width="290px"
-      >
-        <template v-slot:activator="{ on }">
-          <v-text-field
-            :value="dateFormatted"
-            prepend-icon="event"
-            readonly
-            hide-details
-            :label="textLabel"
-            v-on="on"
+  <transition
+    name="fade"
+    mode="out-in"
+  >
+    <div class="todo-container">
+      <div class="todo">
+        <v-chip
+          class="todo-chip"
+          :close="true"
+          text-color="#424242"
+          @input="remove"
+          @click="setProp('status', content.status === 'done' ? 'todo' : 'done')"
+        >
+          <v-avatar>
+            <v-icon
+              color="green"
+              light
+              medium
+            >
+              {{ content.status === 'done' ? 'check_circle_outline' : '' }}
+            </v-icon>
+          </v-avatar>
+					
+          <div class="content subheading font-weight-medium text-truncate">
+            {{ content.description }}
+          </div>
+        </v-chip>
+      </div>
+      <div class="deadline">
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          max-width="290px"
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              :value="dateFormatted"
+              prepend-icon="event"
+              readonly
+              hide-details
+              v-on="on"
+            />
+          </template>
+          <v-date-picker
+            v-model="date"
+            no-title
+            show-current
+            @input="menu = false"
           />
-        </template>
-        <v-date-picker
-          v-model="date"
-          no-title
-          show-current
-          @input="menu = false"
-        />
-      </v-menu>
+        </v-menu>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -90,7 +93,6 @@ export default {
 	data() {
 		return {
 			menu: false,
-			textLabel: 'creation',
 		};
 	},
 	computed: {
@@ -102,7 +104,6 @@ export default {
 				return this.content.deadline.toISOString().substr(0, 10);
 			},
 			set(val) {
-				this.textLabel = 'deadline';
 				this.setProp('deadline', new Date(val));
 			},
 		}
@@ -153,5 +154,14 @@ export default {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.fade-leave-active {
+  transition: all .3s ease;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
 }
 </style>
