@@ -8,7 +8,7 @@
 .home {
     display: flex;
     justify-content: center;
-    background-color: #de3a64;
+    background: linear-gradient(#e0535a, #ec7559);
     width: 100vw;
     height: 100vh;
 }
