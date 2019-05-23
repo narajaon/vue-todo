@@ -29,6 +29,7 @@ export default {
 <style>
 h1 {
 	color: white;
+  margin-bottom: 20px;
 }
 
 .home-page {
@@ -38,6 +39,6 @@ h1 {
 }
 
 .todo-list {
-	width: 50%;
+  width: 100%;
 }
 </style>

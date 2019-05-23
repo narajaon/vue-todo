@@ -4,6 +4,7 @@
       v-for="(elem, index) in todos"
       :content="elem"
       :remove="removeElement(index)"
+      :toggleStatus="toggleElementStatus(index)"
     />
   </div>
 </template>
@@ -18,6 +19,12 @@ export default {
 	methods: {
 		removeElement(index) {
 			return () => this.$store.commit('todos/removeByIndex', { index });
+		},
+		toggleElementStatus(index) {
+			return (status) => {
+				const newStatus = status === 'done' ? 'todo' : 'done';
+				this.$store.commit('todos/setTodoProp', { name: 'status', prop: newStatus, index });
+			};
 		}
 	},
 };

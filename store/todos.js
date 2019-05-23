@@ -3,19 +3,19 @@ import Vue from 'vue';
 export const state = () => ({
 	todos: [
 		{
-			description: 'Todo',
+			description: 'Shopping',
 			deadline: new Date(),
-			status: 'DONE',
+			status: 'done',
 		},
 		{
-			description: 'Coco',
+			description: 'Running',
 			deadline: new Date(),
-			status: 'TODO',
+			status: 'todo',
 		},
 		{
-			description: 'Coc',
+			description: 'Coding',
 			deadline: new Date(),
-			status: 'DONE',
+			status: 'done',
 		}
 	],
 });
@@ -38,4 +38,7 @@ export const mutations = {
 			state.grid.splice(i, 1);
 		}
 	}),
+	setTodoProp: (state, { name, prop, index }) => {
+		state.todos[index][name] = prop;
+	},
 };
